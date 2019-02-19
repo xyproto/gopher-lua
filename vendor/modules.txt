@@ -1,0 +1,4 @@
+# github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
+github.com/chzyer/readline
+# golang.org/x/sys v0.0.0-20190219092855-153ac476189d
+golang.org/x/sys/unix
