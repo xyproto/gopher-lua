@@ -53,8 +53,8 @@ func (tb *LTable) Len() int {
 	if tb.array == nil {
 		return 0
 	}
-	//tb.mut.RLock()
-	//defer tb.mut.RUnlock()
+	tb.mut.RLock()
+	defer tb.mut.RUnlock()
 	var prev LValue = LNil
 	for i := len(tb.array) - 1; i >= 0; i-- {
 		v := tb.array[i]
@@ -105,8 +105,8 @@ func (tb *LTable) MaxN() int {
 	if tb.array == nil {
 		return 0
 	}
-	//tb.mut.RLock()
-	//defer tb.mut.RUnlock()
+	tb.mut.RLock()
+	defer tb.mut.RUnlock()
 	for i := len(tb.array) - 1; i >= 0; i-- {
 		if tb.array[i] != LNil {
 			return i + 1
@@ -266,8 +266,8 @@ func (tb *LTable) RawGet(key LValue) LValue {
 			if tb.array == nil {
 				return LNil
 			}
-			//tb.mut.RLock()
-			//defer tb.mut.RUnlock()
+			tb.mut.RLock()
+			defer tb.mut.RUnlock()
 			index := int(v) - 1
 			if index >= len(tb.array) {
 				return LNil
@@ -278,8 +278,8 @@ func (tb *LTable) RawGet(key LValue) LValue {
 		if tb.strdict == nil {
 			return LNil
 		}
-		//tb.mut.RLock()
-		//defer tb.mut.RUnlock()
+		tb.mut.RLock()
+		defer tb.mut.RUnlock()
 		if ret, ok := tb.strdict[string(v)]; ok {
 			return ret
 		}
@@ -288,8 +288,8 @@ func (tb *LTable) RawGet(key LValue) LValue {
 	if tb.dict == nil {
 		return LNil
 	}
-	//tb.mut.RLock()
-	//defer tb.mut.RUnlock()
+	tb.mut.RLock()
+	defer tb.mut.RUnlock()
 	if v, ok := tb.dict[key]; ok {
 		return v
 	}
@@ -302,8 +302,8 @@ func (tb *LTable) RawGetInt(key int) LValue {
 		return LNil
 	}
 	index := int(key) - 1
-	//tb.mut.RLock()
-	//defer tb.mut.RUnlock()
+	tb.mut.RLock()
+	defer tb.mut.RUnlock()
 	if index >= len(tb.array) || index < 0 {
 		return LNil
 	}
@@ -316,8 +316,8 @@ func (tb *LTable) RawGetH(key LValue) LValue {
 		if tb.strdict == nil {
 			return LNil
 		}
-		//tb.mut.RLock()
-		//defer tb.mut.RUnlock()
+		tb.mut.RLock()
+		defer tb.mut.RUnlock()
 		if v, vok := tb.strdict[string(s)]; vok {
 			return v
 		}
@@ -326,8 +326,8 @@ func (tb *LTable) RawGetH(key LValue) LValue {
 	if tb.dict == nil {
 		return LNil
 	}
-	//tb.mut.RLock()
-	//defer tb.mut.RUnlock()
+	tb.mut.RLock()
+	defer tb.mut.RUnlock()
 	if v, ok := tb.dict[key]; ok {
 		return v
 	}
@@ -339,8 +339,8 @@ func (tb *LTable) RawGetString(key string) LValue {
 	if tb.strdict == nil {
 		return LNil
 	}
-	//tb.mut.RLock()
-	//defer tb.mut.RUnlock()
+	tb.mut.RLock()
+	defer tb.mut.RUnlock()
 	if v, vok := tb.strdict[string(key)]; vok {
 		return v
 	}
