@@ -1,7 +1,5 @@
 package lua
 
-import "sync"
-
 const (
 	defaultArrayCap = 32
 	defaultHashCap  = 32
@@ -11,24 +9,17 @@ type lValueArraySorter struct {
 	L      *LState
 	Fn     *LFunction
 	Values []LValue
-	mut    sync.RWMutex
 }
 
 func (lv lValueArraySorter) Len() int {
-	lv.mut.RLock()
-	defer lv.mut.RUnlock()
 	return len(lv.Values)
 }
 
 func (lv lValueArraySorter) Swap(i, j int) {
-	lv.mut.Lock()
 	lv.Values[i], lv.Values[j] = lv.Values[j], lv.Values[i]
-	lv.mut.Unlock()
 }
 
 func (lv lValueArraySorter) Less(i, j int) bool {
-	lv.mut.RLock()
-	defer lv.mut.RUnlock()
 	if lv.Fn != nil {
 		lv.L.Push(lv.Fn)
 		lv.L.Push(lv.Values[i])

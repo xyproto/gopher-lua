@@ -21,7 +21,7 @@ var tableFuncs = map[string]LGFunction{
 
 func tableSort(L *LState) int {
 	tbl := L.CheckTable(1)
-	sorter := lValueArraySorter{L, nil, tbl.array, tbl.mut}
+	sorter := lValueArraySorter{L, nil, tbl.array}
 	if L.GetTop() != 1 {
 		sorter.Fn = L.CheckFunction(2)
 	}
